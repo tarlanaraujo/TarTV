@@ -1,0 +1,24 @@
+name: iOS Build
+workflows:
+  ios-workflow:
+    name: iOS TarTV
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    environment:
+      flutter: stable
+    scripts:
+      - name: Get Flutter dependencies
+        script: |
+          flutter packages pub get
+      - name: Build iOS
+        script: |
+          flutter build ios --release --no-codesign
+    artifacts:
+      - build/ios/iphoneos/Runner.app
+    publishing:
+      email:
+        recipients:
+          - seuemail@gmail.com  # Colocar seu email
+        notify:
+          success: true
+          failure: true

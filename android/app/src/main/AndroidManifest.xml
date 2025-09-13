@@ -1,0 +1,92 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tartv.app">
+    
+    <!-- Permissões básicas -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <!-- Permissões para player de vídeo -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- Permissões para arquivos e downloads -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" 
+                     android:minSdkVersion="30" />
+    
+    <!-- Permissões de notificação para downloads -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Para manter tela ligada durante reprodução -->
+    <!-- SYSTEM_ALERT_WINDOW removida (não necessária para player padrão e pode bloquear instalação em TV) -->
+    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
+
+    <!-- Características específicas do Android TV -->
+    <uses-feature android:name="android.software.leanback" 
+                  android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" 
+                  android:required="false" />
+    <uses-feature android:name="android.hardware.gamepad"
+                  android:required="false" />
+    <!-- Removendo características que podem causar problemas no TV -->
+    <uses-feature android:name="android.hardware.telephony"
+                  android:required="false" />
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="false" />
+
+    <application
+        android:label="TarTV"
+        android:icon="@mipmap/ic_launcher"
+        android:banner="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="true">
+
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            
+            <!-- Intent filter para launcher normal (celular/tablet) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            
+            <!-- Intent filter para Android TV -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+            </intent-filter>
+            
+        </activity>
+        
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+        <!-- Configuração para suporte a Android TV -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+        <meta-data
+            android:name="com.google.android.tv.framework.hwui.use_v25" 
+            android:value="true" />
+    </application>
+</manifest>
