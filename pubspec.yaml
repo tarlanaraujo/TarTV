@@ -1,7 +1,7 @@
 name: tartv_app
 description: "TarTV - Aplicativo IPTV completo com suporte a Xtream Codes, M3U e player nativo"
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: '>=3.1.0 <4.0.0'

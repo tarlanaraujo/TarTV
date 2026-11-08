@@ -70,7 +70,7 @@ class TVNavigationService extends ChangeNotifier {
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: hasFocus ? [
                     BoxShadow(
-                      color: tvFocusColor.withValues(alpha: 0.3),
+                      color: tvFocusColor.withOpacity(0.3),
                       blurRadius: 10,
                       spreadRadius: 2,
                     )
@@ -125,14 +125,10 @@ class TVNavigationService extends ChangeNotifier {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    (item.icon as Icon).icon,
-                    color: Colors.white,
-                    size: DeviceService.getIconSize(mobile: 24, tv: 32),
-                  ),
+                  item.icon,
                   const SizedBox(height: 4),
                   Text(
-                    item.label!,
+                    item.label ?? '',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: DeviceService.getFontSize(mobile: 12, tv: 14),

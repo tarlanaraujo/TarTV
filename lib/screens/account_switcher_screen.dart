@@ -64,7 +64,7 @@ class AccountSwitcherScreen extends StatelessWidget {
 
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 4),
-                color: isCurrentAccount ? Theme.of(context).primaryColor.withValues(alpha: 0.1) : null,
+                color: isCurrentAccount ? Theme.of(context).primaryColor.withOpacity(0.1) : null,
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: isCurrentAccount 

@@ -77,18 +77,38 @@ class AccountManagerService extends ChangeNotifier {
   List<AccountData> get accounts => List.unmodifiable(_accounts);
   AccountData? get currentAccount => _currentAccount;
   bool get hasMultipleAccounts => _accounts.length > 1;
+  bool _isInitializing = false;
+  bool _isInitialized = false;
   
   Future<void> init() async {
-    await loadAccounts();
+    if (_isInitialized || _isInitializing) return;
+    
+    _isInitializing = true;
+    try {
+      await _safeLoadAccounts();
+      _isInitialized = true;
+    } catch (e) {
+      debugPrint('Erro na inicialização do AccountManager: $e');
+      // Se falhar, continua com dados padrão
+      _accounts = [];
+      _currentAccount = null;
+      _isInitialized = true;
+    } finally {
+      _isInitializing = false;
+      notifyListeners();
+    }
   }
   
-  Future<void> loadAccounts() async {
+  Future<void> _safeLoadAccounts() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      // Timeout de 3 segundos para evitar travamento
+      final prefs = await SharedPreferences.getInstance()
+          .timeout(const Duration(seconds: 3));
+          
       final accountsJson = prefs.getString(_accountsKey);
       final currentAccountId = prefs.getString(_currentAccountKey);
       
-      if (accountsJson != null) {
+      if (accountsJson != null && accountsJson.isNotEmpty) {
         final List<dynamic> accountsList = jsonDecode(accountsJson);
         _accounts = accountsList.map((json) => AccountData.fromJson(json)).toList();
         

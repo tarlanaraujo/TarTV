@@ -55,7 +55,7 @@ class IconGenerator {
     
     // Desenhar sombra interna para profundidade
     final shadowPaint = Paint()
-  ..color = Colors.black.withValues(alpha: 0.2)
+  ..color = Colors.black.withOpacity(0.2)
       ..style = PaintingStyle.fill;
     
     canvas.drawRRect(
@@ -104,7 +104,7 @@ class IconGenerator {
     // Desenhar mini ícone TV no canto inferior direito
     final tvSize = size * 0.15;
     final tvPaint = Paint()
-  ..color = Colors.white.withValues(alpha: 0.8)
+  ..color = Colors.white.withOpacity(0.8)
       ..style = PaintingStyle.fill;
     
     final tvRect = Rect.fromLTWH(
@@ -127,7 +127,7 @@ class IconGenerator {
     antennaPath.lineTo(tvRect.center.dx + tvSize * 0.3, tvRect.top - tvSize * 0.3);
     
     final antennaPaint = Paint()
-  ..color = Colors.white.withValues(alpha: 0.8)
+  ..color = Colors.white.withOpacity(0.8)
       ..style = PaintingStyle.stroke
       ..strokeWidth = size * 0.01;
     

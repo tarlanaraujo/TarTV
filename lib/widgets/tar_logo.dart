@@ -29,7 +29,7 @@ class TarLogo extends StatelessWidget {
         borderRadius: BorderRadius.circular(size * 0.2),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
+            color: Colors.black.withOpacity(0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -52,7 +52,7 @@ class TarLogo extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(size * 0.05),
               decoration: BoxDecoration(
-                color: logoColor.withValues(alpha: 0.2),
+                color: logoColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(size * 0.05),
               ),
               child: Icon(

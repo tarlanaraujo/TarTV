@@ -76,53 +76,11 @@ class DownloadService extends ChangeNotifier {
         return true;
       }
       
-      // Para Android, solicitar permissões múltiplas
+      // Para Android, getExternalStorageDirectory() utiliza o diretório próprio do app
+      // e não requer permissões restritas em tempo de execução
       if (Platform.isAndroid) {
-        debugPrint('🔐 Verificando permissões de armazenamento...');
-        
-        // Verificar se já temos alguma permissão
-        bool hasPermission = await Permission.photos.isGranted || 
-                           await Permission.videos.isGranted ||
-                           await Permission.storage.isGranted;
-        
-        if (hasPermission) {
-          debugPrint('✅ Permissões já concedidas');
-          return true;
-        }
-        
-        // Solicitar permissões uma por vez
-        debugPrint('📱 Solicitando permissão de fotos/mídia...');
-        var photosStatus = await Permission.photos.request();
-        if (photosStatus.isGranted) {
-          debugPrint('✅ Permissão de fotos concedida');
-          return true;
-        }
-        
-        debugPrint('📱 Solicitando permissão de vídeos...');
-        var videosStatus = await Permission.videos.request();
-        if (videosStatus.isGranted) {
-          debugPrint('✅ Permissão de vídeos concedida');
-          return true;
-        }
-        
-        debugPrint('📱 Solicitando permissão de armazenamento...');
-        var storageStatus = await Permission.storage.request();
-        if (storageStatus.isGranted) {
-          debugPrint('✅ Permissão de armazenamento concedida');
-          return true;
-        }
-        
-        // Se negadas permanentemente, abrir configurações
-        if (photosStatus.isPermanentlyDenied || 
-            videosStatus.isPermanentlyDenied || 
-            storageStatus.isPermanentlyDenied) {
-          debugPrint('⚙️ Permissões negadas permanentemente - abrindo configurações');
-          await openAppSettings();
-          return false;
-        }
-        
-        debugPrint('❌ Permissões negadas pelo usuário');
-        return false;
+        debugPrint('🔐 Android - Armazenamento de aplicativo próprio (sem necessidade de permissões amplas)');
+        return true;
       }
       
       // Para outras plataformas, assumir que não precisamos de permissão
